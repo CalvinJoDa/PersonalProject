@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1wct5egnaobr"]
+[gd_scene load_steps=10 format=3 uid="uid://dj4vnh8o3h2s7"]
 
-[ext_resource type="PackedScene" uid="uid://dr0kap4qblrav" path="res://character_body_3d.tscn" id="1_hem03"]
+[ext_resource type="Script" uid="uid://j4l6kvqoauhq" path="res://area_3d.gd" id="1_awlgo"]
+[ext_resource type="PackedScene" uid="uid://dr0kap4qblrav" path="res://character_body_3d.tscn" id="1_vi1jg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e6klo"]
 
@@ -14,10 +15,10 @@ size = Vector3(0.20410156, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_doe2a"]
 size = Vector3(1, 2.3308105, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_hem03"]
+[sub_resource type="BoxMesh" id="BoxMesh_fk3e3"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5a2v"]
-albedo_color = Color(1, 0, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vi1jg"]
+albedo_color = Color(0, 1, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -43,15 +44,16 @@ shape = SubResource("BoxShape3D_ic8kj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5622928, -4.7462893)
 
 [node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_awlgo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(2.511314, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6726949, 5.4391627)
 shape = SubResource("BoxShape3D_doe2a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44447708, 3.9683518, 0)
-mesh = SubResource("BoxMesh_hem03")
-surface_material_override/0 = SubResource("StandardMaterial3D_y5a2v")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9114233, 3.8064957, 0)
+mesh = SubResource("BoxMesh_fk3e3")
+surface_material_override/0 = SubResource("StandardMaterial3D_vi1jg")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_hem03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4302945, 1.0883982, -3.6007922)
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_vi1jg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6258607, 1.1210954, -3.815018)
