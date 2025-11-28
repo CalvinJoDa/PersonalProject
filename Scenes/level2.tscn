@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dof4vodsoepuv"]
+
+[ext_resource type="Script" uid="uid://bvj3lcfc4n0nd" path="res://Scripts/level2level1.gd" id="1_cmmbj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5aef3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmmbj"]
+albedo_color = Color(0.6431373, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ckivy"]
+size = Vector3(11.355, 1, 4.965)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1k4by"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dlanv"]
+albedo_color = Color(0, 0, 1, 1)
+metallic = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_onqnr"]
+size = Vector3(11.305, 1, 4.87)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_styii"]
+size = Vector3(1, 10.975, 5.515)
+
+[node name="Level2" type="Node"]
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="FloorSB" type="StaticBody3D" parent="Geometry"]
+
+[node name="Floor" type="MeshInstance3D" parent="Geometry/FloorSB"]
+transform = Transform3D(11.361798, 0, 0, 0, 1, 0, 0, 0, 4.9373155, 0, 0, 0)
+mesh = SubResource("BoxMesh_5aef3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cmmbj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/FloorSB"]
+shape = SubResource("BoxShape3D_ckivy")
+
+[node name="WallSB" type="StaticBody3D" parent="Geometry"]
+
+[node name="Wall" type="MeshInstance3D" parent="Geometry/WallSB"]
+transform = Transform3D(11.2855835, 0, 0, 0, -4.371139e-08, -4.850597, 0, 1.0000001, -2.1202634e-07, 0, 2.8539214, -1.9507096)
+mesh = SubResource("BoxMesh_1k4by")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dlanv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WallSB"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.8539214, -1.9507096)
+shape = SubResource("BoxShape3D_onqnr")
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="LevelTransitions" type="Node3D" parent="."]
+
+[node name="PlayerEnterPoint" type="Marker3D" parent="LevelTransitions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8279696, 1.0762224, 0)
+
+[node name="Area3D" type="Area3D" parent="LevelTransitions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2226734, 0, 0)
+script = ExtResource("1_cmmbj")
+target_scene = "res://Scenes/level1.tscn"
+spawn_point_name = "PlayerEnterPoint"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransitions/Area3D"]
+shape = SubResource("BoxShape3D_styii")

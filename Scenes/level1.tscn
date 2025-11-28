@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1bkx50hayiiw"]
+
+[ext_resource type="Script" uid="uid://caa6kcvc4s5p1" path="res://Scripts/level1level2.gd" id="1_4hvuo"]
+[ext_resource type="PackedScene" uid="uid://dw6j0d5w44fvt" path="res://Scenes/Enemy.tscn" id="2_vly50"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6015k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6015k"]
+albedo_color = Color(0, 0.39607844, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vly50"]
+size = Vector3(11.355, 1, 4.965)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4hvuo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hvuo"]
+albedo_color = Color(1, 0.7137255, 0, 1)
+metallic = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5erv"]
+size = Vector3(11.305, 1, 4.87)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lyd6k"]
+size = Vector3(1, 10.975, 5.515)
+
+[node name="Level1" type="Node"]
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="FloorSB" type="StaticBody3D" parent="Geometry"]
+
+[node name="Floor" type="MeshInstance3D" parent="Geometry/FloorSB"]
+transform = Transform3D(11.361798, 0, 0, 0, 1, 0, 0, 0, 4.9373155, 0, 0, 0)
+mesh = SubResource("BoxMesh_6015k")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_6015k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/FloorSB"]
+shape = SubResource("BoxShape3D_vly50")
+
+[node name="WallSB" type="StaticBody3D" parent="Geometry"]
+
+[node name="Wall" type="MeshInstance3D" parent="Geometry/WallSB"]
+transform = Transform3D(11.2855835, 0, 0, 0, -4.371139e-08, -4.850597, 0, 1.0000001, -2.1202634e-07, 0, 2.8539214, -1.9507096)
+mesh = SubResource("BoxMesh_4hvuo")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4hvuo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WallSB"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.8539214, -1.9507096)
+shape = SubResource("BoxShape3D_c5erv")
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="LevelTransitions" type="Node3D" parent="."]
+
+[node name="PlayerEnterPoint" type="Marker3D" parent="LevelTransitions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8279696, 1.0762224, 0)
+
+[node name="Area3D" type="Area3D" parent="LevelTransitions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1758785, 0, 0)
+script = ExtResource("1_4hvuo")
+target_scene = "res://Scenes/level2.tscn"
+spawn_point_name = "PlayerEnterPoint"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransitions/Area3D"]
+shape = SubResource("BoxShape3D_lyd6k")
+
+[node name="Enemy" parent="." instance=ExtResource("2_vly50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.134933, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.095, 5.985)

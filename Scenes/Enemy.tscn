@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw6j0d5w44fvt"]
+
+[ext_resource type="Script" uid="uid://dw4yhn8l0xmk7" path="res://Scripts/enemy.gd" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://ye21leh8fj3u" path="res://Scripts/hit_area.gd" id="2_wovta"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wovta"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeo28"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpr8r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m1htj"]
+size = Vector3(1.1, 1, 1.1)
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_m1htj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wovta")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeo28")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kpr8r")
+
+[node name="HitArea" type="Area3D" parent="."]
+script = ExtResource("2_wovta")
+next_level_path = "res://Scenes/level1Arena.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea"]
+shape = SubResource("BoxShape3D_m1htj")
+
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
